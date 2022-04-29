@@ -1,0 +1,28 @@
+{   
+    "classes": {
+        
+        "fyq": {
+            "url": "https://aulavirtual35.educa.madrid.org/ies.ladehesilla.cercedilla/mod/webexactivity/view.php?id=10772",
+            "start": "20-50-30",
+            "finish": "20-51-20",
+            "type": "webex",
+            "len": "en"
+        },
+
+        "gyh": {
+        	"url": "https://aulavirtual35.educa.madrid.org/ies.ladehesilla.cercedilla/mod/webexactivity/view.php?id=10918",
+        	"start": "20-51-30",
+        	"finish": "20-52-20",
+        	"type": "webex",
+        	"len": "en"
+        },
+
+        "biologia": {
+        	"url": "https://aulavirtual35.educa.madrid.org/ies.ladehesilla.cercedilla/mod/webexactivity/view.php?id=10408",
+        	"start": "20-52-30",
+        	"finish": "20-53-20",
+        	"type": "webex",
+        	"len": "en"
+        }
+    }
+}

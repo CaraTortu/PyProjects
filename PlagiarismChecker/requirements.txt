@@ -1,0 +1,4 @@
+jmespath
+termcolor
+requests
+jmespath

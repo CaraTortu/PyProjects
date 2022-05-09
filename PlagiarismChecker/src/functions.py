@@ -1,68 +1,43 @@
-import sys
+import sys, time, json, requests, jmespath
 from termcolor import colored
-import os
-import time
-import threading
-import requests
-import json
-import jmespath
+from os.path import exists
+from dotenv import dotenv_values
 
-argError = 'Usage: python3 main.py [path]'
+argError = 'Usage: python3 main.py [path of the text file]'
 
 
 def readfile(path):
 
-
-    path = str(path)
-    filePaths = ['./']
-    
-
-    try:
-        file = open(path, 'r').read()
-        print(colored("[+] Valid path", 'green'))
-        return file
-
-    except FileNotFoundError:
-        try:
-            file = open(path+filePaths[0], 'r').read()
+    if exists(path):
+        with open(path, 'r') as f:
             print(colored("[+] Valid path", 'green'))
-            return file
+            return f.read()
 
-        except FileNotFoundError:
-            print(colored("[+] Invalid path", 'red'))
-            sys.exit(0)
+    print(colored("[+] Invalid path", 'red'))
+    sys.exit(0)
 
 def getFileContents():
 
-    try:
-        FilePath = sys.argv[1]
-        FileContents = readfile(FilePath)
-        return FileContents
-
-    except IndexError:
+    if len(sys.argv) < 2:
         print(argError)
         sys.exit(0)
 
+    FilePath = sys.argv[1]
+    FileContents = readfile(FilePath)
+    return FileContents
+
 def CheckPlagiarism(text):
     str1 = '[~] Looking for plagiarism'
-    str2 = '....'
 
     for letter in str1:
         print(colored(letter, 'blue'), end='')
         sys.stdout.flush()
         time.sleep(0.05)
 
-
-    for lett in str2:
-        print(colored(lett, 'blue'), end='')
-        sys.stdout.flush()
-        time.sleep(0.33)
-
-
     url = "https://google-search3.p.rapidapi.com/api/v1/search/q="+str(text).replace(' ', '+').lower().replace('\n', '')+"&num=100"
 
     headers = {
-    'x-rapidapi-key': "4fae378d2amsh9960245fc966c5ap1bb293jsnea59414a52d9",
+    'x-rapidapi-key': str(list(dotenv_values("src/.env").values())[0]),
     'x-rapidapi-host': "google-search3.p.rapidapi.com"
     }
 
@@ -70,24 +45,17 @@ def CheckPlagiarism(text):
 
 
     if response.text != '{"detail":"Not Found"}':
-        print('')
-        print(colored("[+] Plagiarism found! Printing websites...", 'green'))
+        print(colored("\n[+] Plagiarism found! Printing websites...\n", 'green'))
         time.sleep(1)
-        print('')
         lines = json.loads(response.text)
         lines = jmespath.search("results[*].link", lines)
         total = len(lines)
 
-        for link in lines:
-            print(colored(str(link), 'red'))
+        for link in lines: print(link)
 
-        print(colored("TOTAL URLS: "+str(total), 'blue'))
+        print(colored("\nTotal URLs found: "+str(total), 'blue'))
+        print("Most likely plagiarised website: "+colored(str(lines[0]), 'green'))
 
     elif response.text == '{"detail":"Not Found"}':
-        print('')
-        print(colored("[-] Plagiarism not found!", 'red'))
+        print(colored("\n[-] Plagiarism not found!", 'red'))
         print(response.text.replace(',', '\n'))
-
-
-def runCommand(cmd):
-    return os.system(cmd)

@@ -6,6 +6,8 @@ The script uses a google search API to search for the content supplied in a file
 
 pip3 install -r requirements.txt
 
+Add your api key to the file .env in src/
+
 python3 main.py [file]
 
 **The text you want to check for plagiarism has to be in a file, that is what the file field is for.**

@@ -1,10 +1,9 @@
 import src.functions as functions
-import time
+import time, os
 
 if __name__ == '__main__':
 
-    print(str(functions.runCommand('figlet PlagiarismCheck')).replace('0', ''))
-    print('')
+    os.system('figlet PlagiarismCheck && echo')
     time.sleep(1)
 
     contents = functions.getFileContents() #Reads the file set in arguments

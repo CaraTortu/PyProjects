@@ -1,4 +1,3 @@
 jmespath
 termcolor
 requests
-jmespath

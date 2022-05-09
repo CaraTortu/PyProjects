@@ -16,7 +16,7 @@ python3 main.py [file]
 
 The syntax used was **python3 main.py text.txt**, where text.txt's contents are "This is a text"
 
-![PLAGIMG.png](https://github.com/CaraTortu/PlagiarismChecker/blob/main/src/PLAGIMG.png)
+![PLAGIMG.png](https://github.com/CaraTortu/PyProjects/blob/main/PlagiarismChecker/src/PLAGIMG.png)
 
 As you can see, it has this steps:
 
